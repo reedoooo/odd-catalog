@@ -28,14 +28,24 @@ Cart.prototype.saveToLocalStorage = function() {
 
 Cart.prototype.removeItem = function(item) {
   // TODO: Fill in this instance method to remove one item from the cart.
+  this.items.items.splice(item, 1);
   // Note: You will have to decide what kind of parameter to pass in here!
-  // this.items.filter(key => key != item);
+
 };
 
 Cart.prototype.updateCounter = function() {
-  // TODO: Update the cart count in the header nav with the number of items in the Cart
+  // TODO: Update the cart count in the header nav with the number of items in the Cart -- DONE
   let itemCountEl = document.getElementById('itemCount');
-  itemCountEl.innerText = state.cart.length;
+  let prevInt = parseInt(itemCount.innerText);
+  let updateInt = parseInt(event.target.quantity.value);
+  
+  if (isNaN(prevInt)) {
+    prevInt = 0;
+  } else prevInt = parseInt(itemCount.innerText);
+
+  let cartInt = prevInt + updateInt;
+
+  itemCountEl.innerText = cartInt;
 
 }
 
@@ -75,6 +85,3 @@ function generateCatalog() {
 
 // Initialize the app by creating the big list of products with images and names
 generateCatalog();
-
-let globalCart = new Cart(state.cart);
-// formEl.addEventListener('submit', globalCart.addItem);
