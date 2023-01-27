@@ -18,7 +18,7 @@ function renderCart() {
 }
 
 
-// TODO: Remove all of the rows (tr) in the cart table (tbody)
+// TODO: Remove all of the rows (tr) in the cart table (tbody) -- DONE
 function clearCart() {
   let tableRows = document.querySelectorAll('#cart tbody tr');
 
@@ -46,13 +46,13 @@ function showCart() {
     itemEl.textContent = state.cart.items.items[i].product;
     quantityEl.textContent = state.cart.items.items[i].quantity;
     deleteButton.textContent = 'Delete';
+    deleteButton.setAttribute('type', 'submit');
+    deleteButton.setAttribute('id', state.cart.items.items.indexOf(state.cart.items.items[i]));
     deleteEl.appendChild(deleteButton);
     
     rowEl.appendChild(deleteEl);
     rowEl.appendChild(quantityEl);
     rowEl.appendChild(itemEl);
-   
-    
 
     tableBodyEl.appendChild(rowEl);
 
@@ -66,11 +66,13 @@ function showCart() {
 function removeItemFromCart(event) {
 
   // TODO: When a delete link is clicked, use cart.removeItem to remove the correct item
+  state.cart.removeItem(event.target.id);
   // TODO: Save the cart back to local storage
+  state.cart.saveToLocalStorage();
   // TODO: Re-draw the cart table
+  renderCart();
 
 }
 
 // This will initialize the page and draw the cart on screen
 renderCart();
-console.log(document);
