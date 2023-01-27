@@ -6,6 +6,8 @@ const state = {
   cart: null,
 };
 
+let formEl = document.getElementById('catalog');
+
 // Cart constructor.
 const Cart = function(items) {
   // this.items is an array of CartItem instances.
@@ -13,20 +15,28 @@ const Cart = function(items) {
 };
 
 Cart.prototype.addItem = function(product, quantity) {
-  // TODO: Fill in this instance method to create a new CartItem and add it to this.items
+  // TODO: Fill in this instance method to create a new CartItem and add it to this.items -- DONE;
+  let newItem = new CartItem (product, quantity);
+  return newItem;
 };
 
 Cart.prototype.saveToLocalStorage = function() {
-  // TODO: Fill in this instance method to save the contents of the cart to localStorage
+  // TODO: Fill in this instance method to save the contents of the cart to localStorage -- DONE;
+  let stringifiedCart = JSON.stringify(state.cart);
+  localStorage.setItem('cart', stringifiedCart);
 };
 
 Cart.prototype.removeItem = function(item) {
   // TODO: Fill in this instance method to remove one item from the cart.
   // Note: You will have to decide what kind of parameter to pass in here!
+  // this.items.filter(key => key != item);
 };
 
 Cart.prototype.updateCounter = function() {
   // TODO: Update the cart count in the header nav with the number of items in the Cart
+  let itemCountEl = document.getElementById('itemCount');
+  itemCountEl.innerText = state.cart.length;
+
 }
 
 const CartItem = function(product, quantity) {
@@ -65,3 +75,6 @@ function generateCatalog() {
 
 // Initialize the app by creating the big list of products with images and names
 generateCatalog();
+
+let globalCart = new Cart(state.cart);
+// formEl.addEventListener('submit', globalCart.addItem);
